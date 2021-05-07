@@ -1,0 +1,35 @@
+version: "3.8"
+
+services:
+  app:
+    build: .
+    networks:
+      - app-network
+    container_name: app
+    ports:
+      - '${APP_PORT:-3000}:${APP_PORT:-3000}'
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    volumes:
+      - '.:/usr/app'
+    depends_on:
+      - db
+    restart: on-failure
+
+  db:
+    image: 'postgres:alpine'
+    networks:
+      - app-network
+    container_name: db
+    environment:
+      POSTGRES_DB: picpay_challenge
+      POSTGRES_USER: ${POSTGRES_USER:-docker}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-docker}
+    ports:
+      - '5432:5432'
+    volumes:
+      - ./.docker/dbdata:/var/lib/postgresql
+
+networks:
+  app-network:
+    driver: bridge
