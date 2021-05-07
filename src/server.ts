@@ -6,6 +6,6 @@ app.get("/", (request, response) => {
   response.send("teste");
 });
 
-app.listen(3333, () => {
-  console.log("App listen on port 3333");
+app.listen(3000, () => {
+  console.log("App listen on port 3000");
 });
