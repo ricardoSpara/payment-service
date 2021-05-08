@@ -1,5 +1,7 @@
 import express, { Response, Request, NextFunction, Express } from "express";
 
+import { AppError } from "@shared/errors/app-error";
+
 import "express-async-errors";
 
 import Database from "../database";
@@ -24,6 +26,12 @@ class App {
   errorHandler(): void {
     this.server.use(
       (err: Error, request: Request, response: Response, _: NextFunction) => {
+        if (err instanceof AppError) {
+          return response
+            .status(err.statusCode)
+            .json({ status: "error", message: err.message });
+        }
+
         return response
           .status(500)
           .json({ status: "error", message: err.message });

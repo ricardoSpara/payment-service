@@ -32,6 +32,36 @@ class UsersRepository implements IUsersRepository {
 
     return user;
   }
+
+  findByCpf(cpf: string): Promise<User | undefined> {
+    const user = this.repository.findOne({
+      where: {
+        cpf,
+      },
+    });
+
+    return user;
+  }
+
+  findByCnpj(cnpj: string): Promise<User | undefined> {
+    const user = this.repository.findOne({
+      where: {
+        cnpj,
+      },
+    });
+
+    return user;
+  }
+
+  findByEmail(email: string): Promise<User | undefined> {
+    const user = this.repository.findOne({
+      where: {
+        email,
+      },
+    });
+
+    return user;
+  }
 }
 
 export { UsersRepository };

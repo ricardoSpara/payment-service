@@ -5,6 +5,8 @@ import { IUsersRepository } from "@modules/accounts/repositories/contracts/iuser
 import { IWalletsRepository } from "@modules/accounts/repositories/contracts/iwallet-repository";
 import { inject, injectable } from "tsyringe";
 
+import { AppError } from "@shared/errors/app-error";
+
 type IRequestCreateUser = ICreateUserDTO & ICreateWalletDTO;
 
 @injectable()
@@ -12,10 +14,10 @@ class CreateUserUseCase {
   constructor(
     @inject("UsersRepository")
     private usersRepository: IUsersRepository,
-    @inject("HashProvider")
-    private hashProvider: IHashProvider,
     @inject("WalletsRepository")
-    private walletsRepository: IWalletsRepository
+    private walletsRepository: IWalletsRepository,
+    @inject("HashProvider")
+    private hashProvider: IHashProvider
   ) {}
 
   async execute({
@@ -27,6 +29,12 @@ class CreateUserUseCase {
     is_shopkeeper,
     amount,
   }: Omit<IRequestCreateUser, "user_id">): Promise<void> {
+    const checkUserExists = await this.usersRepository.findByEmail(email);
+
+    if (checkUserExists) {
+      throw new AppError("Email address already used");
+    }
+
     const hashedPassword = await this.hashProvider.generateHash(password);
 
     const { id: user_id } = await this.usersRepository.create({
