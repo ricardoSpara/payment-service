@@ -22,7 +22,7 @@ services:
       - app-network
     container_name: db
     environment:
-      POSTGRES_DB: picpay_challenge
+      POSTGRES_DB: picpay_challenge_db
       POSTGRES_USER: ${POSTGRES_USER:-docker}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-docker}
     ports:

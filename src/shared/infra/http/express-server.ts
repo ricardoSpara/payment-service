@@ -2,6 +2,7 @@ import express, { Response, Request, NextFunction, Express } from "express";
 
 import "express-async-errors";
 
+import Database from "../database";
 import { router } from "./routes";
 
 class App {
@@ -12,6 +13,8 @@ class App {
   }
 
   async init(): Promise<Express> {
+    await Database.init();
+
     this.routes();
     this.errorHandler();
 
