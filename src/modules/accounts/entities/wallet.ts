@@ -1,28 +1,16 @@
 import { Entity, PrimaryColumn, Column, CreateDateColumn } from "typeorm";
 import { v4 as uuidV4 } from "uuid";
 
-@Entity("users")
-class User {
+@Entity("wallets")
+class Wallet {
   @PrimaryColumn()
   id: string;
 
   @Column()
-  full_name: string;
+  amount: number;
 
   @Column()
-  email: string;
-
-  @Column()
-  password: string;
-
-  @Column()
-  cpf: string;
-
-  @Column()
-  cnpj: string;
-
-  @Column()
-  is_shopkeeper: boolean;
+  user_id: string;
 
   @CreateDateColumn()
   created_at: Date;
@@ -34,4 +22,4 @@ class User {
   }
 }
 
-export { User };
+export { Wallet };

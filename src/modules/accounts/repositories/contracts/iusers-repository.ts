@@ -1,4 +1,5 @@
 import { ICreateUserDTO } from "../../dtos/icreate-user-dto";
+import { User } from "../../entities/user";
 
 interface IUsersRepository {
   create({
@@ -8,7 +9,7 @@ interface IUsersRepository {
     cpf,
     cnpj,
     is_shopkeeper,
-  }: ICreateUserDTO): Promise<void>;
+  }: ICreateUserDTO): Promise<User>;
 }
 
 export { IUsersRepository };

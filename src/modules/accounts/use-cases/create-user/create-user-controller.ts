@@ -12,6 +12,7 @@ class CreateUserController {
       cpf,
       cnpj,
       is_shopkeeper,
+      amount,
     } = request.body;
 
     const createUserUseCase = container.resolve(CreateUserUseCase);
@@ -23,6 +24,7 @@ class CreateUserController {
       cpf,
       cnpj,
       is_shopkeeper,
+      amount,
     });
 
     return response.status(201).send();
