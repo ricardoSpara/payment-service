@@ -1,9 +1,9 @@
 import "reflect-metadata";
 import "dotenv/config";
 
-import "./shared/container";
+import "@shared/container";
 
-import ExpressServer from "./shared/infra/http/express-server";
+import ExpressServer from "@shared/infra/http/express-server";
 
 const { APP_PORT } = process.env;
 

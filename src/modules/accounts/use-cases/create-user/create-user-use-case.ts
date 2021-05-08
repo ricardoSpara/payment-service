@@ -1,10 +1,9 @@
+import { ICreateUserDTO } from "@modules/accounts/dtos/icreate-user-dto";
+import { ICreateWalletDTO } from "@modules/accounts/dtos/icreate-wallet-dto";
+import { IHashProvider } from "@modules/accounts/providers/hash-provider/contracts/ihash-provider";
+import { IUsersRepository } from "@modules/accounts/repositories/contracts/iusers-repository";
+import { IWalletsRepository } from "@modules/accounts/repositories/contracts/iwallet-repository";
 import { inject, injectable } from "tsyringe";
-
-import { ICreateUserDTO } from "../../dtos/icreate-user-dto";
-import { ICreateWalletDTO } from "../../dtos/icreate-wallet-dto";
-import { IHashProvider } from "../../providers/hash-provider/contracts/ihash-provider";
-import { IUsersRepository } from "../../repositories/contracts/iusers-repository";
-import { IWalletsRepository } from "../../repositories/contracts/iwallet-repository";
 
 type IRequestCreateUser = ICreateUserDTO & ICreateWalletDTO;
 
