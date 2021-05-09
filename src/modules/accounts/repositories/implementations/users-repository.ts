@@ -17,7 +17,7 @@ class UsersRepository implements IUsersRepository {
     password,
     cpf,
     cnpj,
-    is_shopkeeper,
+    type,
   }: ICreateUserDTO): Promise<User> {
     const user = this.repository.create({
       full_name,
@@ -25,7 +25,7 @@ class UsersRepository implements IUsersRepository {
       password,
       cpf,
       cnpj,
-      is_shopkeeper,
+      type,
     });
 
     await this.repository.save(user);

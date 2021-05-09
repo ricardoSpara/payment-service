@@ -16,13 +16,13 @@ class User {
   password: string;
 
   @Column()
-  cpf: string;
+  cpf?: string;
 
   @Column()
-  cnpj: string;
+  cnpj?: string;
 
   @Column()
-  is_shopkeeper: boolean;
+  type: string;
 
   @CreateDateColumn()
   created_at: Date;

@@ -4,7 +4,7 @@ interface ICreateUserDTO {
   password: string;
   cpf?: string;
   cnpj?: string;
-  is_shopkeeper: boolean;
+  type: string;
 }
 
 export { ICreateUserDTO };

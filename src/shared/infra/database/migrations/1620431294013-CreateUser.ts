@@ -37,9 +37,8 @@ export class CreateUsers1619742722251 implements MigrationInterface {
             isUnique: true,
           },
           {
-            name: "is_shopkeeper",
-            type: "boolean",
-            default: false,
+            name: "type",
+            type: "varchar",
           },
           {
             name: "created_at",

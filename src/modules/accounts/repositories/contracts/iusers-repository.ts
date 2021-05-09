@@ -8,7 +8,7 @@ interface IUsersRepository {
     password,
     cpf,
     cnpj,
-    is_shopkeeper,
+    type,
   }: ICreateUserDTO): Promise<User>;
 
   findByCpf(cpf: string): Promise<User | undefined>;

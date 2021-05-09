@@ -11,7 +11,7 @@ class CreateUserController {
       password,
       cpf,
       cnpj,
-      is_shopkeeper,
+      type,
       amount,
     } = request.body;
 
@@ -23,7 +23,7 @@ class CreateUserController {
       password,
       cpf,
       cnpj,
-      is_shopkeeper,
+      type,
       amount,
     });
 
