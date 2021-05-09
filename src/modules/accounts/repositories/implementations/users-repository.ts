@@ -33,7 +33,7 @@ class UsersRepository implements IUsersRepository {
     return user;
   }
 
-  findByCpf(cpf: string): Promise<User | undefined> {
+  async findByCpf(cpf: string): Promise<User | undefined> {
     const user = this.repository.findOne({
       where: {
         cpf,
@@ -43,7 +43,7 @@ class UsersRepository implements IUsersRepository {
     return user;
   }
 
-  findByCnpj(cnpj: string): Promise<User | undefined> {
+  async findByCnpj(cnpj: string): Promise<User | undefined> {
     const user = this.repository.findOne({
       where: {
         cnpj,
@@ -53,7 +53,7 @@ class UsersRepository implements IUsersRepository {
     return user;
   }
 
-  findByEmail(email: string): Promise<User | undefined> {
+  async findByEmail(email: string): Promise<User | undefined> {
     const user = this.repository.findOne({
       where: {
         email,

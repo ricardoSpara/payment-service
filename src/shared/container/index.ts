@@ -3,7 +3,7 @@ import { BCryptHashProvider } from "@modules/accounts/providers/hash-provider/im
 import { IUsersRepository } from "@modules/accounts/repositories/contracts/iusers-repository";
 import { IWalletsRepository } from "@modules/accounts/repositories/contracts/iwallet-repository";
 import { UsersRepository } from "@modules/accounts/repositories/implementations/users-repository";
-import { WalletsRepository } from "@modules/accounts/repositories/implementations/wallet-repository";
+import { WalletsRepository } from "@modules/accounts/repositories/implementations/wallets-repository";
 import { container } from "tsyringe";
 
 container.registerSingleton<IUsersRepository>(
