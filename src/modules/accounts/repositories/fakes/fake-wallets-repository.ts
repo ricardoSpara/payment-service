@@ -15,6 +15,14 @@ class FakeWalletsRepository implements IWalletsRepository {
 
     return wallet;
   }
+
+  async save(wallet: Wallet): Promise<void> {
+    const findIndex = this.wallets.findIndex(
+      (findWallet) => findWallet.id === wallet.id
+    );
+
+    this.wallets[findIndex] = wallet;
+  }
 }
 
 export { FakeWalletsRepository };

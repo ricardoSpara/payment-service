@@ -21,6 +21,14 @@ class Wallet {
   getAmount(): number {
     return this.amount;
   }
+
+  incrementAmount(value: number): void {
+    this.amount = parseFloat(String(this.amount)) + parseFloat(String(value));
+  }
+
+  decrementAmount(value: number): void {
+    this.amount = parseFloat(String(this.amount)) - parseFloat(String(value));
+  }
 }
 
 export { Wallet };

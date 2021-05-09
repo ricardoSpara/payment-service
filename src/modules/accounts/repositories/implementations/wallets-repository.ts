@@ -20,6 +20,10 @@ class WalletsRepository implements IWalletsRepository {
 
     return wallet;
   }
+
+  async save(wallet: Wallet): Promise<void> {
+    await this.repository.save(wallet);
+  }
 }
 
 export { WalletsRepository };

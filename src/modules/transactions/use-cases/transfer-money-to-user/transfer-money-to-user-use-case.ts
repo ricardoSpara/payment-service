@@ -37,8 +37,18 @@ class TransferMoneyToUserUseCase {
       throw new AppError("Shopkeeper can not transfer to another account");
     }
 
-    console.log(`payer`, payer);
-    console.log(value, payer_id, payee_id);
+    if (payer.wallet.getAmount() < value) {
+      throw new AppError("Don't have enough money to make the transfer");
+    }
+
+    payer.wallet.decrementAmount(value);
+    payee.wallet.incrementAmount(value);
+
+    await this.walletsRepository.save(payer.wallet);
+    await this.walletsRepository.save(payee.wallet);
+
+    console.log(`payer.wallet.getAmount()`, payer.wallet.getAmount());
+    console.log(`payee.wallet.getAmount()`, payee.wallet.getAmount());
   }
 }
 
