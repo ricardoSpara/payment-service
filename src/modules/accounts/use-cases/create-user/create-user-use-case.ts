@@ -1,5 +1,6 @@
 import { ICreateUserDTO } from "@modules/accounts/dtos/icreate-user-dto";
 import { ICreateWalletDTO } from "@modules/accounts/dtos/icreate-wallet-dto";
+import { permitedUserTypes } from "@modules/accounts/entities/user";
 import { IHashProvider } from "@modules/accounts/providers/hash-provider/contracts/ihash-provider";
 import { IUsersRepository } from "@modules/accounts/repositories/contracts/iusers-repository";
 import { IWalletsRepository } from "@modules/accounts/repositories/contracts/iwallet-repository";
@@ -29,10 +30,30 @@ class CreateUserUseCase {
     type,
     amount,
   }: Omit<IRequestCreateUser, "user_id">): Promise<void> {
-    const checkUserExists = await this.usersRepository.findByEmail(email);
+    const checkEmailExists = await this.usersRepository.findByEmail(email);
 
-    if (checkUserExists) {
+    if (checkEmailExists) {
       throw new AppError("Email address already used");
+    }
+
+    if (!permitedUserTypes.includes(type)) {
+      throw new AppError("Type of user does not exist");
+    }
+
+    if (type === "common" && cpf) {
+      const checkCpfExists = await this.usersRepository.findByCpf(cpf);
+
+      if (checkCpfExists) {
+        throw new AppError("Cpf already used");
+      }
+    }
+
+    if (type === "shopkeeper" && cnpj) {
+      const checkCnpjExists = await this.usersRepository.findByCnpj(cnpj);
+
+      if (checkCnpjExists) {
+        throw new AppError("Cnpj already used");
+      }
     }
 
     const hashedPassword = await this.hashProvider.generateHash(password);

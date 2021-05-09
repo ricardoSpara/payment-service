@@ -34,4 +34,6 @@ class User {
   }
 }
 
-export { User };
+const permitedUserTypes: Array<string> = ["common", "shopkeeper"];
+
+export { User, permitedUserTypes };
