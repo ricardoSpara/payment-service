@@ -3,6 +3,12 @@ import { v4 as uuidV4 } from "uuid";
 
 @Entity("transactions")
 class Transaction {
+  constructor() {
+    if (!this.id) {
+      this.id = uuidV4();
+    }
+  }
+
   @PrimaryColumn()
   id: string;
 
@@ -17,12 +23,6 @@ class Transaction {
 
   @CreateDateColumn()
   created_at: Date;
-
-  constructor() {
-    if (!this.id) {
-      this.id = uuidV4();
-    }
-  }
 }
 
 export { Transaction };

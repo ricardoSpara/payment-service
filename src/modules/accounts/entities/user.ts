@@ -1,8 +1,23 @@
-import { Entity, PrimaryColumn, Column, CreateDateColumn } from "typeorm";
+import {
+  Entity,
+  PrimaryColumn,
+  Column,
+  CreateDateColumn,
+  OneToOne,
+  JoinColumn,
+} from "typeorm";
 import { v4 as uuidV4 } from "uuid";
+
+import { Wallet } from "./wallet";
 
 @Entity("users")
 class User {
+  constructor() {
+    if (!this.id) {
+      this.id = uuidV4();
+    }
+  }
+
   @PrimaryColumn()
   id: string;
 
@@ -24,13 +39,18 @@ class User {
   @Column()
   type: string;
 
+  @Column()
+  wallet_id: string;
+
   @CreateDateColumn()
   created_at: Date;
 
-  constructor() {
-    if (!this.id) {
-      this.id = uuidV4();
-    }
+  @OneToOne(() => Wallet)
+  @JoinColumn({ name: "wallet_id" })
+  wallet: Wallet;
+
+  getType(): string {
+    return this.type;
   }
 }
 

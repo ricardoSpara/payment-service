@@ -5,6 +5,7 @@ interface ICreateUserDTO {
   cpf?: string;
   cnpj?: string;
   type: string;
+  wallet_id: string;
 }
 
 export { ICreateUserDTO };

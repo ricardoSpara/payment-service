@@ -11,13 +11,14 @@ class WalletsRepository implements IWalletsRepository {
     this.repository = getRepository(Wallet);
   }
 
-  async create({ amount, user_id }: ICreateWalletDTO): Promise<void> {
+  async create({ amount }: ICreateWalletDTO): Promise<Wallet> {
     const wallet = this.repository.create({
       amount,
-      user_id,
     });
 
     await this.repository.save(wallet);
+
+    return wallet;
   }
 }
 

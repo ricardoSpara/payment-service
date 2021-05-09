@@ -31,7 +31,7 @@ export class CreateTransaction1620570987406 implements MigrationInterface {
         ],
         foreignKeys: [
           {
-            name: "User",
+            name: "Payer",
             referencedTableName: "users",
             referencedColumnNames: ["id"],
             columnNames: ["payer_id"],
@@ -39,7 +39,7 @@ export class CreateTransaction1620570987406 implements MigrationInterface {
             onUpdate: "CASCADE",
           },
           {
-            name: "User",
+            name: "Payee",
             referencedTableName: "users",
             referencedColumnNames: ["id"],
             columnNames: ["payee_id"],

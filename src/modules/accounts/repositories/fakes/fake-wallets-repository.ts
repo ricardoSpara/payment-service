@@ -7,11 +7,13 @@ import { IWalletsRepository } from "../contracts/iwallet-repository";
 class FakeWalletsRepository implements IWalletsRepository {
   private wallets: Wallet[] = [];
 
-  async create(walletData: ICreateWalletDTO): Promise<void> {
+  async create(walletData: ICreateWalletDTO): Promise<Wallet> {
     const wallet = new Wallet();
     Object.assign(wallet, { id: uuidV4() }, walletData);
 
     this.wallets.push(wallet);
+
+    return wallet;
   }
 }
 

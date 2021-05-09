@@ -4,7 +4,7 @@ import { ICreateTransactionDTO } from "@modules/transactions/dtos/icreate-transa
 import { ITrasanctionsRepository } from "@modules/transactions/repositories/contracts/itransactions-repository";
 import { inject, injectable } from "tsyringe";
 
-// import { AppError } from "@shared/errors/app-error";
+import { AppError } from "@shared/errors/app-error";
 
 @injectable()
 class TransferMoneyToUserUseCase {
@@ -22,6 +22,22 @@ class TransferMoneyToUserUseCase {
     payer_id,
     payee_id,
   }: ICreateTransactionDTO): Promise<void> {
+    const payer = await this.usersRepository.findById(payer_id);
+    const payee = await this.usersRepository.findById(payee_id);
+
+    if (!payer) {
+      throw new AppError("Payer does not exists");
+    }
+
+    if (!payee) {
+      throw new AppError("Payee does not exists");
+    }
+
+    if (payer.getType() === "shopkeeper") {
+      throw new AppError("Shopkeeper can not transfer to another account");
+    }
+
+    console.log(`payer`, payer);
     console.log(value, payer_id, payee_id);
   }
 }

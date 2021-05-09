@@ -3,22 +3,23 @@ import { v4 as uuidV4 } from "uuid";
 
 @Entity("wallets")
 class Wallet {
+  constructor() {
+    if (!this.id) {
+      this.id = uuidV4();
+    }
+  }
+
   @PrimaryColumn()
   id: string;
 
   @Column()
   amount: number;
 
-  @Column()
-  user_id: string;
-
   @CreateDateColumn()
   created_at: Date;
 
-  constructor() {
-    if (!this.id) {
-      this.id = uuidV4();
-    }
+  getAmount(): number {
+    return this.amount;
   }
 }
 

@@ -9,8 +9,10 @@ interface IUsersRepository {
     cpf,
     cnpj,
     type,
+    wallet_id,
   }: ICreateUserDTO): Promise<User>;
 
+  findById(id: string): Promise<User | undefined>;
   findByCpf(cpf: string): Promise<User | undefined>;
   findByCnpj(cnpj: string): Promise<User | undefined>;
   findByEmail(email: string): Promise<User | undefined>;

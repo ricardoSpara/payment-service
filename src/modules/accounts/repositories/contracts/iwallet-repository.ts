@@ -1,7 +1,9 @@
+import { Wallet } from "@modules/accounts/entities/wallet";
+
 import { ICreateWalletDTO } from "../../dtos/icreate-wallet-dto";
 
 interface IWalletsRepository {
-  create({ amount, user_id }: ICreateWalletDTO): Promise<void>;
+  create({ amount }: ICreateWalletDTO): Promise<Wallet>;
 }
 
 export { IWalletsRepository };

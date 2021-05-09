@@ -29,7 +29,7 @@ class CreateUserUseCase {
     cnpj,
     type,
     amount,
-  }: Omit<IRequestCreateUser, "user_id">): Promise<User> {
+  }: Omit<IRequestCreateUser, "wallet_id">): Promise<User> {
     const checkEmailExists = await this.usersRepository.findByEmail(email);
 
     if (checkEmailExists) {
@@ -58,6 +58,10 @@ class CreateUserUseCase {
 
     const hashedPassword = await this.hashProvider.generateHash(password);
 
+    const { id: wallet_id } = await this.walletsRepository.create({
+      amount,
+    });
+
     const user = await this.usersRepository.create({
       full_name,
       email,
@@ -65,11 +69,7 @@ class CreateUserUseCase {
       cpf,
       cnpj,
       type,
-    });
-
-    await this.walletsRepository.create({
-      amount,
-      user_id: user.id,
+      wallet_id,
     });
 
     return user;

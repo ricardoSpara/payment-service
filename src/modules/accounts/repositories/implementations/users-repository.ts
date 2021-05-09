@@ -18,6 +18,7 @@ class UsersRepository implements IUsersRepository {
     cpf,
     cnpj,
     type,
+    wallet_id,
   }: ICreateUserDTO): Promise<User> {
     const user = this.repository.create({
       full_name,
@@ -26,9 +27,21 @@ class UsersRepository implements IUsersRepository {
       cpf,
       cnpj,
       type,
+      wallet_id,
     });
 
     await this.repository.save(user);
+
+    return user;
+  }
+
+  findById(id: string): Promise<User | undefined> {
+    const user = this.repository.findOne({
+      where: {
+        id,
+      },
+      relations: ["wallet"],
+    });
 
     return user;
   }
