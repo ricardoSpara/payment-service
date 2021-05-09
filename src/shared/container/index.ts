@@ -4,6 +4,8 @@ import { IUsersRepository } from "@modules/accounts/repositories/contracts/iuser
 import { IWalletsRepository } from "@modules/accounts/repositories/contracts/iwallet-repository";
 import { UsersRepository } from "@modules/accounts/repositories/implementations/users-repository";
 import { WalletsRepository } from "@modules/accounts/repositories/implementations/wallets-repository";
+import { ITrasanctionsRepository } from "@modules/transactions/repositories/contracts/itransactions-repository";
+import { TransactionsRepository } from "@modules/transactions/repositories/implementations/transactions-repository";
 import { container } from "tsyringe";
 
 container.registerSingleton<IUsersRepository>(
@@ -14,6 +16,11 @@ container.registerSingleton<IUsersRepository>(
 container.registerSingleton<IWalletsRepository>(
   "WalletsRepository",
   WalletsRepository
+);
+
+container.registerSingleton<ITrasanctionsRepository>(
+  "TrasanctionsRepository",
+  TransactionsRepository
 );
 
 container.registerSingleton<IHashProvider>("HashProvider", BCryptHashProvider);
