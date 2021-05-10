@@ -64,7 +64,7 @@ class TransferMoneyToUserUseCase {
     const isAuthorized = await this.authorizerProvider.isAuthorized();
 
     if (!isAuthorized) {
-      throw new AppError("Not authorized", 401);
+      throw new AppError("Not authorized", 403);
     }
 
     await this.mailProvider.notify();

@@ -6,6 +6,7 @@ services:
     networks:
       - app-network
     container_name: app
+    entrypoint: dockerize -wait tcp://db:5432 -timeout 40s ./entrypoint.sh
     ports:
       - '${APP_PORT:-3000}:${APP_PORT:-3000}'
     environment:
