@@ -1,6 +1,7 @@
 import { IUsersRepository } from "@modules/accounts/repositories/contracts/iusers-repository";
 import { IWalletsRepository } from "@modules/accounts/repositories/contracts/iwallet-repository";
 import { ICreateTransactionDTO } from "@modules/transactions/dtos/icreate-transaction-dto";
+import { IAuthorizerProvider } from "@modules/transactions/providers/authorizer-provider/contracts/iauthorizer-provider";
 import { ITrasanctionsRepository } from "@modules/transactions/repositories/contracts/itransactions-repository";
 import { inject, injectable } from "tsyringe";
 
@@ -14,7 +15,9 @@ class TransferMoneyToUserUseCase {
     @inject("WalletsRepository")
     private walletsRepository: IWalletsRepository,
     @inject("TrasanctionsRepository")
-    private trasanctionsRepository: ITrasanctionsRepository
+    private trasanctionsRepository: ITrasanctionsRepository,
+    @inject("AuthorizerProvider")
+    private authorizerProvider: IAuthorizerProvider
   ) {}
 
   async execute({
@@ -47,6 +50,13 @@ class TransferMoneyToUserUseCase {
     await this.walletsRepository.save(payer.wallet);
     await this.walletsRepository.save(payee.wallet);
 
+    const isAuthorized = await this.authorizerProvider.isAuthorized();
+
+    if (!isAuthorized) {
+      throw new AppError("Not authorized", 401);
+    }
+
+    console.log(`isAuthorized`, isAuthorized);
     console.log(`payer.wallet.getAmount()`, payer.wallet.getAmount());
     console.log(`payee.wallet.getAmount()`, payee.wallet.getAmount());
   }
