@@ -8,7 +8,7 @@ class AuthorizerProvider implements IAuthorizerProvider {
   authorizerService: AxiosInstance;
 
   constructor() {
-    this.authorizerService = getClientApi("https://run.mocky.io");
+    this.authorizerService = getClientApi(String(process.env.AUTHORIZER_ROUTE));
   }
 
   async isAuthorized(): Promise<boolean> {

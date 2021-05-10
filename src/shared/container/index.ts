@@ -6,6 +6,8 @@ import { UsersRepository } from "@modules/accounts/repositories/implementations/
 import { WalletsRepository } from "@modules/accounts/repositories/implementations/wallets-repository";
 import { IAuthorizerProvider } from "@modules/transactions/providers/authorizer-provider/contracts/iauthorizer-provider";
 import { AuthorizerProvider } from "@modules/transactions/providers/authorizer-provider/implementations/authorizer-provider";
+import { IMailProvider } from "@modules/transactions/providers/mail-provider/contracts/imail-provider";
+import { MailProvider } from "@modules/transactions/providers/mail-provider/implementations/mail-provider";
 import { ITrasanctionsRepository } from "@modules/transactions/repositories/contracts/itransactions-repository";
 import { TransactionsRepository } from "@modules/transactions/repositories/implementations/transactions-repository";
 import { container } from "tsyringe";
@@ -29,5 +31,7 @@ container.registerSingleton<IAuthorizerProvider>(
   "AuthorizerProvider",
   AuthorizerProvider
 );
+
+container.registerSingleton<IMailProvider>("MailProvider", MailProvider);
 
 container.registerSingleton<IHashProvider>("HashProvider", BCryptHashProvider);

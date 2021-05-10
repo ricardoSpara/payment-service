@@ -2,6 +2,7 @@ import { IUsersRepository } from "@modules/accounts/repositories/contracts/iuser
 import { IWalletsRepository } from "@modules/accounts/repositories/contracts/iwallet-repository";
 import { ICreateTransactionDTO } from "@modules/transactions/dtos/icreate-transaction-dto";
 import { IAuthorizerProvider } from "@modules/transactions/providers/authorizer-provider/contracts/iauthorizer-provider";
+import { IMailProvider } from "@modules/transactions/providers/mail-provider/contracts/imail-provider";
 import { ITrasanctionsRepository } from "@modules/transactions/repositories/contracts/itransactions-repository";
 import { inject, injectable } from "tsyringe";
 
@@ -17,7 +18,9 @@ class TransferMoneyToUserUseCase {
     @inject("TrasanctionsRepository")
     private trasanctionsRepository: ITrasanctionsRepository,
     @inject("AuthorizerProvider")
-    private authorizerProvider: IAuthorizerProvider
+    private authorizerProvider: IAuthorizerProvider,
+    @inject("MailProvider")
+    private mailProvider: IMailProvider
   ) {}
 
   async execute({
@@ -26,11 +29,12 @@ class TransferMoneyToUserUseCase {
     payee_id,
   }: ICreateTransactionDTO): Promise<void> {
     const payer = await this.usersRepository.findById(payer_id);
-    const payee = await this.usersRepository.findById(payee_id);
 
     if (!payer) {
       throw new AppError("Payer does not exists");
     }
+
+    const payee = await this.usersRepository.findById(payee_id);
 
     if (!payee) {
       throw new AppError("Payee does not exists");
@@ -47,8 +51,15 @@ class TransferMoneyToUserUseCase {
     payer.wallet.decrementAmount(value);
     payee.wallet.incrementAmount(value);
 
-    await this.walletsRepository.save(payer.wallet);
-    await this.walletsRepository.save(payee.wallet);
+    await Promise.all([
+      this.walletsRepository.save(payer.wallet),
+      this.walletsRepository.save(payee.wallet),
+      this.trasanctionsRepository.create({
+        payer_id: payer.id,
+        payee_id: payee.id,
+        value,
+      }),
+    ]);
 
     const isAuthorized = await this.authorizerProvider.isAuthorized();
 
@@ -56,9 +67,7 @@ class TransferMoneyToUserUseCase {
       throw new AppError("Not authorized", 401);
     }
 
-    console.log(`isAuthorized`, isAuthorized);
-    console.log(`payer.wallet.getAmount()`, payer.wallet.getAmount());
-    console.log(`payee.wallet.getAmount()`, payee.wallet.getAmount());
+    await this.mailProvider.notify();
   }
 }
 
