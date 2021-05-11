@@ -1,0 +1,115 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Picpay challenge Documentation",
+    "description": "This is an picpay challenge",
+    "version": "1.0.0",
+    "email": "ricardo.jrsparapan@gmail.com"
+  },
+  "paths": {
+    "/users": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Criar um usuário",
+        "description": "Criar um novo usuário",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["full_name", "email", "type", "number", "amount", "password"],
+                "properties": {
+                  "full_name": {
+                    "type": "string"
+                  },
+                  "cpf": {
+                    "type": "string",
+                    "description": "Esse campo deve ser enviado quando o usuario for do tipo 'common'"
+                  },
+                  "cnpj": {
+                    "type": "string",
+                    "description": "Esse campo deve ser enviado quando o usuario for do tipo 'shopkeeper'"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "password":{
+                    "type": "string"
+                  },
+                  "type":{
+                    "type": "string",
+                    "description": "Esse campo pode ser enviado como 'common' ou 'shopkeeper'"
+                  },
+                  "amount":{
+                    "type": "number"
+                  }
+                },
+                "example": {
+                  "full_name": "User fullname sample",
+                  "cpf": "074.970.610-46",
+                  "cnpj": "00.480.306/0001-92",
+                  "email": "weyeg60069@mxcdd.com",
+                  "password": "123456",
+                  "type": "common",
+                  "amount": 10
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "500": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/transactions": {
+      "post": {
+        "tags": [
+          "Transaction"
+        ],
+        "summary": "Criar nova transação",
+        "description": "Criar uma nova transação",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "number"
+                  },
+                  "payer": {
+                    "type": "string"
+                  },
+                  "payee": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "value": 5,
+                  "payer": "0d610390-4c8f-444e-9be9-19e6bc84c1ee",
+                  "payee": "1962104e-2592-4a8d-88ab-bd0bca3126d8"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "500": {
+            "description": "Error"
+          }
+        }
+      }
+    }
+  }
+}

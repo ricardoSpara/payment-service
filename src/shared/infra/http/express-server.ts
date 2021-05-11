@@ -1,6 +1,9 @@
 import express, { Response, Request, NextFunction, Express } from "express";
+import swaggerUi from "swagger-ui-express";
 
 import { AppError } from "@shared/errors/app-error";
+
+import swaggerFile from "../../../../swagger.json";
 
 import "express-async-errors";
 
@@ -42,6 +45,7 @@ class App {
   routes(): void {
     this.server.use(express.json());
     this.server.use(router);
+    this.server.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerFile));
   }
 }
 
