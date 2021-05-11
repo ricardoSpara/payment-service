@@ -8,7 +8,7 @@ class MailProvider implements IMailProvider {
   mailService: AxiosInstance;
 
   constructor() {
-    this.mailService = getClientApi(String(process.env.MAIL_ROUTE));
+    this.mailService = getClientApi(String(process.env.MAIL_SERVICE));
   }
 
   async notify(): Promise<void> {
