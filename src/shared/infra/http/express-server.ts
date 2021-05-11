@@ -3,10 +3,9 @@ import swaggerUi from "swagger-ui-express";
 
 import { AppError } from "@shared/errors/app-error";
 
-import swaggerFile from "../../../../swagger.json";
-
 import "express-async-errors";
 
+import swaggerFile from "../../../../swagger.json";
 import Database from "../database";
 import { router } from "./routes";
 
