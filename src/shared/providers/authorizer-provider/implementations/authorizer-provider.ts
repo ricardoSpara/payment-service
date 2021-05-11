@@ -8,7 +8,9 @@ class AuthorizerProvider implements IAuthorizerProvider {
   authorizerService: AxiosInstance;
 
   constructor() {
-    this.authorizerService = getClientApi(String(process.env.AUTHORIZER_SERVICE));
+    this.authorizerService = getClientApi(
+      String(process.env.AUTHORIZER_SERVICE)
+    );
   }
 
   async isAuthorized(): Promise<boolean> {
