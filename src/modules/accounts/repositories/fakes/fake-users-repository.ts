@@ -2,7 +2,7 @@ import { ICreateUserDTO } from "@modules/accounts/dtos/icreate-user-dto";
 import { User } from "@modules/accounts/entities/user";
 import { v4 as uuidV4 } from "uuid";
 
-import { IUsersRepository } from "../contracts/iusers-repository";
+import { IUsersRepository } from "../iusers-repository";
 
 class FakeUsersRepository implements IUsersRepository {
   private users: User[] = [];

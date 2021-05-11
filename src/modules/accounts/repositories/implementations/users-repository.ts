@@ -2,7 +2,7 @@ import { ICreateUserDTO } from "@modules/accounts/dtos/icreate-user-dto";
 import { User } from "@modules/accounts/entities/user";
 import { getRepository, Repository } from "typeorm";
 
-import { IUsersRepository } from "../contracts/iusers-repository";
+import { IUsersRepository } from "../iusers-repository";
 
 class UsersRepository implements IUsersRepository {
   private repository: Repository<User>;

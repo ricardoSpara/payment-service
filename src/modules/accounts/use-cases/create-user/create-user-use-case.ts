@@ -1,8 +1,8 @@
 import { ICreateUserDTO } from "@modules/accounts/dtos/icreate-user-dto";
 import { ICreateWalletDTO } from "@modules/accounts/dtos/icreate-wallet-dto";
 import { permitedUserTypes, User } from "@modules/accounts/entities/user";
-import { IUsersRepository } from "@modules/accounts/repositories/contracts/iusers-repository";
-import { IWalletsRepository } from "@modules/accounts/repositories/contracts/iwallet-repository";
+import { IUsersRepository } from "@modules/accounts/repositories/iusers-repository";
+import { IWalletsRepository } from "@modules/accounts/repositories/iwallet-repository";
 import { inject, injectable } from "tsyringe";
 
 import { AppError } from "@shared/errors/app-error";

@@ -1,5 +1,5 @@
-import { ICreateTransactionDTO } from "../../dtos/icreate-transaction-dto";
-import { Transaction } from "../../entities/transaction";
+import { ICreateTransactionDTO } from "../dtos/icreate-transaction-dto";
+import { Transaction } from "../entities/transaction";
 
 interface ITrasanctionsRepository {
   create({

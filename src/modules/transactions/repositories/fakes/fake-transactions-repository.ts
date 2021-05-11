@@ -1,6 +1,6 @@
 import { ICreateTransactionDTO } from "@modules/transactions/dtos/icreate-transaction-dto";
 import { Transaction } from "@modules/transactions/entities/transaction";
-import { ITrasanctionsRepository } from "@modules/transactions/repositories/contracts/itransactions-repository";
+import { ITrasanctionsRepository } from "@modules/transactions/repositories/itransactions-repository";
 
 class FakeTransactionsRepository implements ITrasanctionsRepository {
   public transactions: Transaction[] = [];

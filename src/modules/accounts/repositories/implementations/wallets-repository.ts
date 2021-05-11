@@ -2,7 +2,7 @@ import { getRepository, Repository } from "typeorm";
 
 import { ICreateWalletDTO } from "../../dtos/icreate-wallet-dto";
 import { Wallet } from "../../entities/wallet";
-import { IWalletsRepository } from "../contracts/iwallet-repository";
+import { IWalletsRepository } from "../iwallet-repository";
 
 class WalletsRepository implements IWalletsRepository {
   private repository: Repository<Wallet>;

@@ -1,7 +1,7 @@
-import { IUsersRepository } from "@modules/accounts/repositories/contracts/iusers-repository";
-import { IWalletsRepository } from "@modules/accounts/repositories/contracts/iwallet-repository";
+import { IUsersRepository } from "@modules/accounts/repositories/iusers-repository";
+import { IWalletsRepository } from "@modules/accounts/repositories/iwallet-repository";
 import { ICreateTransactionDTO } from "@modules/transactions/dtos/icreate-transaction-dto";
-import { ITrasanctionsRepository } from "@modules/transactions/repositories/contracts/itransactions-repository";
+import { ITrasanctionsRepository } from "@modules/transactions/repositories/itransactions-repository";
 import { inject, injectable } from "tsyringe";
 
 import { AppError } from "@shared/errors/app-error";

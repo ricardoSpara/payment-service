@@ -1,9 +1,9 @@
-import { IUsersRepository } from "@modules/accounts/repositories/contracts/iusers-repository";
-import { IWalletsRepository } from "@modules/accounts/repositories/contracts/iwallet-repository";
 import { UsersRepository } from "@modules/accounts/repositories/implementations/users-repository";
 import { WalletsRepository } from "@modules/accounts/repositories/implementations/wallets-repository";
-import { ITrasanctionsRepository } from "@modules/transactions/repositories/contracts/itransactions-repository";
+import { IUsersRepository } from "@modules/accounts/repositories/iusers-repository";
+import { IWalletsRepository } from "@modules/accounts/repositories/iwallet-repository";
 import { TransactionsRepository } from "@modules/transactions/repositories/implementations/transactions-repository";
+import { ITrasanctionsRepository } from "@modules/transactions/repositories/itransactions-repository";
 import { container } from "tsyringe";
 
 import { IAuthorizerProvider } from "@shared/providers/authorizer-provider/iauthorizer-provider";

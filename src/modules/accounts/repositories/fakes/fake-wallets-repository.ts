@@ -2,7 +2,7 @@ import { v4 as uuidV4 } from "uuid";
 
 import { ICreateWalletDTO } from "../../dtos/icreate-wallet-dto";
 import { Wallet } from "../../entities/wallet";
-import { IWalletsRepository } from "../contracts/iwallet-repository";
+import { IWalletsRepository } from "../iwallet-repository";
 
 class FakeWalletsRepository implements IWalletsRepository {
   private wallets: Wallet[] = [];
