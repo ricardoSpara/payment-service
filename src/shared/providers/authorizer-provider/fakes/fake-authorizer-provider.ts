@@ -1,4 +1,4 @@
-import { IAuthorizerProvider } from "../contracts/iauthorizer-provider";
+import { IAuthorizerProvider } from "../iauthorizer-provider";
 
 class FakeAuthorizerProvider implements IAuthorizerProvider {
   async isAuthorized(): Promise<boolean> {

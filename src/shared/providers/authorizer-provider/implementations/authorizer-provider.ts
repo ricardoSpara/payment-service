@@ -2,7 +2,7 @@ import { AxiosInstance } from "axios";
 
 import { getClientApi } from "@shared/helpers";
 
-import { IAuthorizerProvider } from "../contracts/iauthorizer-provider";
+import { IAuthorizerProvider } from "../iauthorizer-provider";
 
 class AuthorizerProvider implements IAuthorizerProvider {
   authorizerService: AxiosInstance;

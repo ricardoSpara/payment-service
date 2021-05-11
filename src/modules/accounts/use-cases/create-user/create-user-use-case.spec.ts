@@ -1,6 +1,6 @@
 import { AppError } from "@shared/errors/app-error";
 
-import { FakeHashProvider } from "../../providers/hash-provider/fakes/fake-hash-provider";
+import { FakeHashProvider } from "../../../../shared/providers/hash-provider/fakes/fake-hash-provider";
 import { FakeUsersRepository } from "../../repositories/fakes/fake-users-repository";
 import { FakeWalletsRepository } from "../../repositories/fakes/fake-wallets-repository";
 import { CreateUserUseCase } from "./create-user-use-case";

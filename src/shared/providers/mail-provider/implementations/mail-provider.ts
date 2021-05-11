@@ -2,7 +2,7 @@ import { AxiosInstance } from "axios";
 
 import { getClientApi } from "@shared/helpers";
 
-import { IMailProvider } from "../contracts/imail-provider";
+import { IMailProvider } from "../imail-provider";
 
 class MailProvider implements IMailProvider {
   mailService: AxiosInstance;

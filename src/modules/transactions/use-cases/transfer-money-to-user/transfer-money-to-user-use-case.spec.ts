@@ -1,11 +1,11 @@
 import { User } from "@modules/accounts/entities/user";
 import { FakeUsersRepository } from "@modules/accounts/repositories/fakes/fake-users-repository";
 import { FakeWalletsRepository } from "@modules/accounts/repositories/fakes/fake-wallets-repository";
-import { FakeAuthorizerProvider } from "@modules/transactions/providers/authorizer-provider/fakes/fake-authorizer-provider";
-import { FakeMailProvider } from "@modules/transactions/providers/mail-provider/fakes/fake-mail-provider";
 import { FakeTransactionsRepository } from "@modules/transactions/repositories/fakes/fake-transactions-repository";
 
 import { AppError } from "@shared/errors/app-error";
+import { FakeAuthorizerProvider } from "@shared/providers/authorizer-provider/fakes/fake-authorizer-provider";
+import { FakeMailProvider } from "@shared/providers/mail-provider/fakes/fake-mail-provider";
 
 import { TransferMoneyToUserUseCase } from "./transfer-money-to-user-use-case";
 
