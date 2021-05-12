@@ -1,11 +1,11 @@
 import { UserFactory } from "@modules/accounts/factories/user-factory";
+import { FakeUsersRepository } from "@modules/accounts/repositories/fakes/fake-users-repository";
+import { FakeWalletsRepository } from "@modules/accounts/repositories/fakes/fake-wallets-repository";
 
 import { AppError } from "@shared/errors/app-error";
 import { generateId } from "@shared/helpers";
+import { FakeHashProvider } from "@shared/providers/hash-provider/fakes/fake-hash-provider";
 
-import { FakeHashProvider } from "../../../../shared/providers/hash-provider/fakes/fake-hash-provider";
-import { FakeUsersRepository } from "../../repositories/fakes/fake-users-repository";
-import { FakeWalletsRepository } from "../../repositories/fakes/fake-wallets-repository";
 import { CreateUserUseCase } from "./create-user-use-case";
 
 let fakeUsersRepository: FakeUsersRepository;

@@ -1,4 +1,5 @@
-import { Wallet } from "../../entities/wallet";
+import { Wallet } from "@modules/accounts/entities/wallet";
+
 import { IWalletsRepository } from "../iwallet-repository";
 
 class FakeWalletsRepository implements IWalletsRepository {

@@ -1,6 +1,6 @@
+import { Wallet } from "@modules/accounts/entities/wallet";
 import { getRepository, Repository } from "typeorm";
 
-import { Wallet } from "../../entities/wallet";
 import { IWalletsRepository } from "../iwallet-repository";
 
 class WalletsRepository implements IWalletsRepository {

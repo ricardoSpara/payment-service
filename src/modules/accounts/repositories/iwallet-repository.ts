@@ -1,4 +1,4 @@
-import { Wallet } from "@modules/accounts/entities/wallet";
+import { Wallet } from "../entities/wallet";
 
 interface IWalletsRepository {
   save(wallet: Wallet): Promise<void>;
