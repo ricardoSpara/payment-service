@@ -1,6 +1,6 @@
-# **Picpay-challenge**
+# **Payment-service**
 
-Picpay challenge.
+Payment-service.
 
 ## **Install instructions**
 
