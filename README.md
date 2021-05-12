@@ -18,3 +18,10 @@ Payment-service.
 
 - 2.1) **[Docker]** If you have a docker on your machine:
   - 2.1.1) Local Deploy: `docker-compose up`
+
+#### 3) Check api docs
+
+```
+ http://localhost:3000/api-docs/
+```
+
