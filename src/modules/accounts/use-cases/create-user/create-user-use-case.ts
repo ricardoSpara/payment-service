@@ -1,14 +1,13 @@
 import { ICreateUserDTO } from "@modules/accounts/dtos/icreate-user-dto";
-import { ICreateWalletDTO } from "@modules/accounts/dtos/icreate-wallet-dto";
 import { permitedUserTypes, User } from "@modules/accounts/entities/user";
+import { UserFactory } from "@modules/accounts/factories/user-factory";
 import { IUsersRepository } from "@modules/accounts/repositories/iusers-repository";
 import { IWalletsRepository } from "@modules/accounts/repositories/iwallet-repository";
 import { inject, injectable } from "tsyringe";
 
 import { AppError } from "@shared/errors/app-error";
+import { generateId } from "@shared/helpers";
 import { IHashProvider } from "@shared/providers/hash-provider/ihash-provider";
-
-type IRequestCreateUser = ICreateUserDTO & ICreateWalletDTO;
 
 @injectable()
 class CreateUserUseCase {
@@ -29,7 +28,7 @@ class CreateUserUseCase {
     cnpj,
     type,
     amount,
-  }: Omit<IRequestCreateUser, "wallet_id">): Promise<User> {
+  }: Omit<ICreateUserDTO, "id">): Promise<User> {
     const checkEmailExists = await this.usersRepository.findByEmail(email);
 
     if (checkEmailExists) {
@@ -58,19 +57,19 @@ class CreateUserUseCase {
 
     const hashedPassword = await this.hashProvider.generateHash(password);
 
-    const { id: wallet_id } = await this.walletsRepository.create({
-      amount,
-    });
-
-    const user = await this.usersRepository.create({
+    const user = UserFactory.create({
       full_name,
       email,
       password: hashedPassword,
       cpf,
       cnpj,
       type,
-      wallet_id,
+      amount,
+      id: generateId(),
     });
+
+    await this.walletsRepository.save(user.wallet);
+    await this.usersRepository.save(user);
 
     return user;
   }

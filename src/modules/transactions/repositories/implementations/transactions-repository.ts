@@ -25,6 +25,10 @@ class TransactionsRepository implements ITrasanctionsRepository {
 
     return transaction;
   }
+
+  async save(transaction: Transaction): Promise<void> {
+    await this.repository.save(transaction);
+  }
 }
 
 export { TransactionsRepository };

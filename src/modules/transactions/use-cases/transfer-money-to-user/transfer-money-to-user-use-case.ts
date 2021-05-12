@@ -1,10 +1,12 @@
 import { IUsersRepository } from "@modules/accounts/repositories/iusers-repository";
 import { IWalletsRepository } from "@modules/accounts/repositories/iwallet-repository";
 import { ICreateTransactionDTO } from "@modules/transactions/dtos/icreate-transaction-dto";
+import { TransactionFactory } from "@modules/transactions/factories/transaction-factory";
 import { ITrasanctionsRepository } from "@modules/transactions/repositories/itransactions-repository";
 import { inject, injectable } from "tsyringe";
 
 import { AppError } from "@shared/errors/app-error";
+import { generateId } from "@shared/helpers";
 import { IAuthorizerProvider } from "@shared/providers/authorizer-provider/iauthorizer-provider";
 import { IMailProvider } from "@shared/providers/mail-provider/imail-provider";
 
@@ -27,7 +29,7 @@ class TransferMoneyToUserUseCase {
     value,
     payer_id,
     payee_id,
-  }: ICreateTransactionDTO): Promise<void> {
+  }: Omit<ICreateTransactionDTO, "id">): Promise<void> {
     const payer = await this.usersRepository.findById(payer_id);
 
     if (!payer) {
@@ -54,12 +56,16 @@ class TransferMoneyToUserUseCase {
     await Promise.all([
       this.walletsRepository.save(payer.wallet),
       this.walletsRepository.save(payee.wallet),
-      this.trasanctionsRepository.create({
-        payer_id: payer.id,
-        payee_id: payee.id,
-        value,
-      }),
     ]);
+
+    const transaction = TransactionFactory.create({
+      id: generateId(),
+      payer_id: payer.id,
+      payee_id: payee.id,
+      value,
+    });
+
+    await this.trasanctionsRepository.save(transaction);
 
     const isAuthorized = await this.authorizerProvider.isAuthorized();
 

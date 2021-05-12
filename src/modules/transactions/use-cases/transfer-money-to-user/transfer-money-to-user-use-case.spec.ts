@@ -1,9 +1,11 @@
 import { User } from "@modules/accounts/entities/user";
+import { UserFactory } from "@modules/accounts/factories/user-factory";
 import { FakeUsersRepository } from "@modules/accounts/repositories/fakes/fake-users-repository";
 import { FakeWalletsRepository } from "@modules/accounts/repositories/fakes/fake-wallets-repository";
 import { FakeTransactionsRepository } from "@modules/transactions/repositories/fakes/fake-transactions-repository";
 
 import { AppError } from "@shared/errors/app-error";
+import { generateId } from "@shared/helpers";
 import { FakeAuthorizerProvider } from "@shared/providers/authorizer-provider/fakes/fake-authorizer-provider";
 import { FakeMailProvider } from "@shared/providers/mail-provider/fakes/fake-mail-provider";
 
@@ -23,33 +25,29 @@ interface IMakeUserResponse {
 }
 
 const makeUsers = async (): Promise<IMakeUserResponse> => {
-  const walletCommonUser = await fakeWalletsRepository.create({
-    amount: 100,
-  });
-
-  const commonUser = await fakeUsersRepository.create({
+  const commonUser = await UserFactory.create({
+    id: generateId(),
     full_name: "Payer doe",
     email: "johndoe@test.com",
     password: "test@123",
     type: "common",
     cpf: "941.161.440-02",
-    wallet_id: walletCommonUser.id,
-  });
-  commonUser.wallet = walletCommonUser;
-
-  const walletShopkeeper = await fakeWalletsRepository.create({
     amount: 100,
   });
 
-  const shopkeeper = await fakeUsersRepository.create({
+  fakeUsersRepository.save(commonUser);
+
+  const shopkeeper = await UserFactory.create({
+    id: generateId(),
     full_name: "Payee doe",
     email: "johndoe2@test.com",
     password: "test@123",
     type: "shopkeeper",
     cnpj: "36.010.439/0001-42",
-    wallet_id: walletShopkeeper.id,
+    amount: 100,
   });
-  shopkeeper.wallet = walletShopkeeper;
+
+  fakeUsersRepository.save(shopkeeper);
 
   return {
     commonUser,

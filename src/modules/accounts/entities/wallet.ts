@@ -1,11 +1,13 @@
 import { Entity, PrimaryColumn, Column, CreateDateColumn } from "typeorm";
-import { v4 as uuidV4 } from "uuid";
+
+import { ICreateWalletDTO } from "../dtos/icreate-wallet-dto";
 
 @Entity("wallets")
 class Wallet {
-  constructor() {
-    if (!this.id) {
-      this.id = uuidV4();
+  constructor(walletData: ICreateWalletDTO) {
+    if (walletData) {
+      this.id = walletData.id;
+      this.amount = walletData.amount;
     }
   }
 

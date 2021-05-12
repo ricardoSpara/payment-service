@@ -1,4 +1,3 @@
-import { ICreateUserDTO } from "@modules/accounts/dtos/icreate-user-dto";
 import { User } from "@modules/accounts/entities/user";
 import { getRepository, Repository } from "typeorm";
 
@@ -11,28 +10,8 @@ class UsersRepository implements IUsersRepository {
     this.repository = getRepository(User);
   }
 
-  async create({
-    full_name,
-    email,
-    password,
-    cpf,
-    cnpj,
-    type,
-    wallet_id,
-  }: ICreateUserDTO): Promise<User> {
-    const user = this.repository.create({
-      full_name,
-      email,
-      password,
-      cpf,
-      cnpj,
-      type,
-      wallet_id,
-    });
-
+  async save(user: User): Promise<void> {
     await this.repository.save(user);
-
-    return user;
   }
 
   findById(id: string): Promise<User | undefined> {

@@ -6,15 +6,32 @@ import {
   OneToOne,
   JoinColumn,
 } from "typeorm";
-import { v4 as uuidV4 } from "uuid";
 
+import { generateId } from "@shared/helpers";
+
+import { ICreateUserDTO } from "../dtos/icreate-user-dto";
+import { WalletFactory } from "../factories/wallet-factory";
 import { Wallet } from "./wallet";
 
 @Entity("users")
 class User {
-  constructor() {
-    if (!this.id) {
-      this.id = uuidV4();
+  constructor(userData: ICreateUserDTO) {
+    if (userData) {
+      this.id = userData.id;
+      this.full_name = userData.full_name;
+      this.email = userData.email;
+      this.password = userData.password;
+      this.cpf = userData.cpf;
+      this.cnpj = userData.cnpj;
+      this.type = userData.type;
+
+      const wallet = WalletFactory.create({
+        amount: userData.amount,
+        id: generateId(),
+      });
+
+      this.wallet = wallet;
+      this.wallet_id = wallet.id;
     }
   }
 

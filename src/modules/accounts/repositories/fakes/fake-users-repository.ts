@@ -1,19 +1,20 @@
-import { ICreateUserDTO } from "@modules/accounts/dtos/icreate-user-dto";
 import { User } from "@modules/accounts/entities/user";
-import { v4 as uuidV4 } from "uuid";
 
 import { IUsersRepository } from "../iusers-repository";
 
 class FakeUsersRepository implements IUsersRepository {
-  private users: User[] = [];
+  public users: User[] = [];
 
-  async create(userData: ICreateUserDTO): Promise<User> {
-    const user = new User();
-    Object.assign(user, { id: uuidV4() }, userData);
+  async save(user: User): Promise<void> {
+    const findIndex = this.users.findIndex(
+      (findUser) => findUser.id === user.id
+    );
 
-    this.users.push(user);
-
-    return user;
+    if (findIndex !== -1) {
+      this.users[findIndex] = user;
+    } else {
+      this.users.push(user);
+    }
   }
 
   async findById(id: string): Promise<User | undefined> {

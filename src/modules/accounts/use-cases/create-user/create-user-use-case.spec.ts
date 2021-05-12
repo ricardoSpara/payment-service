@@ -1,4 +1,7 @@
+import { UserFactory } from "@modules/accounts/factories/user-factory";
+
 import { AppError } from "@shared/errors/app-error";
+import { generateId } from "@shared/helpers";
 
 import { FakeHashProvider } from "../../../../shared/providers/hash-provider/fakes/fake-hash-provider";
 import { FakeUsersRepository } from "../../repositories/fakes/fake-users-repository";
@@ -55,21 +58,18 @@ describe("CreateUser", () => {
   });
 
   it("should not be able to create a new user with same e-mail another", async () => {
-    const { id: wallet_id } = await fakeWalletsRepository.create({
-      amount: 100,
-    });
-
     const userData = {
+      id: generateId(),
       amount: 100,
       full_name: "John doe",
       email: "johndoe@test.com",
       password: "test@123",
       type: "common",
       cpf: "941.161.440-02",
-      wallet_id,
     };
 
-    fakeUsersRepository.create(userData);
+    const user = UserFactory.create(userData);
+    fakeUsersRepository.save(user);
 
     await expect(sut.execute(userData)).rejects.toEqual(
       new AppError("Email address already used")
@@ -77,21 +77,18 @@ describe("CreateUser", () => {
   });
 
   it("should not be able to create a new user with same cpf another", async () => {
-    const { id: wallet_id } = await fakeWalletsRepository.create({
-      amount: 100,
-    });
-
     const userData = {
+      id: generateId(),
       amount: 100,
       full_name: "John doe",
       email: "johndoe@test.com",
       password: "test@123",
       type: "common",
       cpf: "941.161.440-02",
-      wallet_id,
     };
 
-    fakeUsersRepository.create(userData);
+    const user = UserFactory.create(userData);
+    fakeUsersRepository.save(user);
 
     userData.email = "johndoe2@test.com";
 
@@ -101,21 +98,18 @@ describe("CreateUser", () => {
   });
 
   it("should not be able to create a new user with same cnpj another", async () => {
-    const { id: wallet_id } = await fakeWalletsRepository.create({
-      amount: 100,
-    });
-
     const userData = {
+      id: generateId(),
       amount: 100,
       full_name: "John doe",
       email: "johndoe@test.com",
       password: "test@123",
       type: "shopkeeper",
       cnpj: "36.010.439/0001-42",
-      wallet_id,
     };
 
-    fakeUsersRepository.create(userData);
+    const user = UserFactory.create(userData);
+    fakeUsersRepository.save(user);
 
     userData.email = "johndoe2@test.com";
 
@@ -126,6 +120,7 @@ describe("CreateUser", () => {
 
   it("should not be able to create a new user with an unknown type", async () => {
     const userData = {
+      id: generateId(),
       amount: 100,
       full_name: "John doe",
       email: "johndoe@test.com",
