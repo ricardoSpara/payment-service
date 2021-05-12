@@ -39,8 +39,19 @@ class CreateUserUseCase {
       throw new AppError("Type of user does not exist");
     }
 
+    const hashedPassword = await this.hashProvider.generateHash(password);
+    const userData = {
+      full_name,
+      email,
+      password: hashedPassword,
+      type,
+      amount,
+      id: generateId(),
+    } as ICreateUserDTO;
+
     if (type === "common" && cpf) {
       const checkCpfExists = await this.usersRepository.findByCpf(cpf);
+      userData.cpf = cpf;
 
       if (checkCpfExists) {
         throw new AppError("Cpf already used");
@@ -49,24 +60,14 @@ class CreateUserUseCase {
 
     if (type === "shopkeeper" && cnpj) {
       const checkCnpjExists = await this.usersRepository.findByCnpj(cnpj);
+      userData.cnpj = cnpj;
 
       if (checkCnpjExists) {
         throw new AppError("Cnpj already used");
       }
     }
 
-    const hashedPassword = await this.hashProvider.generateHash(password);
-
-    const user = UserFactory.create({
-      full_name,
-      email,
-      password: hashedPassword,
-      cpf,
-      cnpj,
-      type,
-      amount,
-      id: generateId(),
-    });
+    const user = UserFactory.create(userData);
 
     await this.walletsRepository.save(user.wallet);
     await this.usersRepository.save(user);
