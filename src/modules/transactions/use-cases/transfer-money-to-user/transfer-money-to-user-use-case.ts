@@ -4,6 +4,7 @@ import { ICreateTransactionDTO } from "@modules/transactions/dtos/icreate-transa
 import { TransactionFactory } from "@modules/transactions/factories/transaction-factory";
 import { ITrasanctionsRepository } from "@modules/transactions/repositories/itransactions-repository";
 import { inject, injectable } from "tsyringe";
+import { Transactional } from "typeorm-transactional-cls-hooked";
 
 import { AppError } from "@shared/errors/app-error";
 import { generateId } from "@shared/helpers";
@@ -25,6 +26,7 @@ class TransferMoneyToUserUseCase {
     private mailProvider: IMailProvider
   ) {}
 
+  @Transactional()
   async execute({
     value,
     payer_id,
