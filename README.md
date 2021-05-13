@@ -1,6 +1,6 @@
 # **Payment-service**
 
-O projeto consiste na criação de usuarios comuns/logistas, podendo realizar transferencias de usuarios comuns para logistas.
+O projeto consiste na criação de usuários comuns/logistas, podendo realizar transferências de usuários comuns para logistas.
 
 Principios/Técnicas/Conceitos utilizados:
 - **Clean Architecture (CA)**
@@ -40,6 +40,20 @@ Foi utilizado PostgreSQL e consiste em 3 tabelas como na imagem a seguir:
 
 ![alt text](docs/schema.png "schema")
 
+### Arquitetura atual
+
+Hoje temos uma arquitetura monolítica muito simples. onde temos uma unica aplicacao que e reponsavel por criar usuários e realizar transferências.
+
+![alt text](docs/current-architecture.png "schema")
+### Arquitetura sugerida
+
+Conseguimos evoluir para uma arquitetura serverless, onde separamos a parte de usuário (user/wallet) e transações (Transactions), dessa forma a arquitetura continua simples, mas conseguimos escalar por demanda, exemplo: pode ser que nao criamos usuários com tanta recorrencia e com isso nao a neccecidade de escalar infraestrutura para usuários, por outro lado transações tem muita recorrencia e com isso podemos escalar separadamente.
+
+
+> - **email-service**: Separei a parte de envio de e-mail em um outro serviço pois na minha visão não é uma tarefa que precisa ser feita de forma síncrona, além disso, as arquiteturas serverless de provedores geralmente cobram por tempo que a função fica em execução.
+> - **Kafka broker**: Utilizaria um broker como o kafka para mensageria da arquitetura (também poderia ser um RabbitMQ). Toda vez que precisássemos enviar um e-mail, madarariamos para um uma mensagem para o topico send-email, e teriamos o email-service consumindo essas mensagens.
+
+![alt text](docs/suggested-architecture.png "schema")
 
 ## **Testes**
 
@@ -50,12 +64,5 @@ Os teste utilizam jest, foquei os testes principalmente na parte de caso de uso,
 ```bash
 yarn test # or npm run test
 ```
-![alt text](docs/tests.png "schema")
+![alt text](docs/tests.png "tests")
 
-
-<!-- #### 3) Check api docs
-
-```
- http://localhost:3000/api-docs/
-```
- -->
