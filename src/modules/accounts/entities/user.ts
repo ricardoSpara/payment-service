@@ -7,8 +7,7 @@ import {
   JoinColumn,
 } from "typeorm";
 
-import { generateId } from "@shared/helpers";
-
+import { generateId } from "../../../shared/helpers";
 import { ICreateUserDTO } from "../dtos/icreate-user-dto";
 import { WalletFactory } from "../factories/wallet-factory";
 import { Wallet } from "./wallet";
