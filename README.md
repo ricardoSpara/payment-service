@@ -47,7 +47,7 @@ Hoje temos uma arquitetura monolítica muito simples. onde temos uma unica aplic
 ![alt text](docs/current-architecture.png "schema")
 ### Arquitetura sugerida
 
-Conseguimos evoluir para uma arquitetura serverless, onde separamos a parte de usuário (user/wallet) e transações (Transactions), dessa forma a arquitetura continua simples, mas conseguimos escalar por demanda, exemplo: pode ser que nao criamos usuários com tanta recorrencia e com isso nao a neccecidade de escalar infraestrutura para usuários, por outro lado transações tem muita recorrencia e com isso podemos escalar separadamente.
+Conseguimos evoluir para uma arquitetura serverless, onde separamos a parte de usuário (user/wallet) e transações (Transactions), dessa forma a arquitetura continua simples, mas conseguimos escalar por demanda, exemplo: pode ser que não criamos usuários com tanta recorrência e com isso não há necessidade de escalar infraestrutura para usuários, por outro lado transações tem muita recorrência e com isso podemos escalar separadamente.
 
 
 > - **email-service**: Separei a parte de envio de e-mail em um outro serviço pois na minha visão não é uma tarefa que precisa ser feita de forma síncrona, além disso, as arquiteturas serverless de provedores geralmente cobram por tempo que a função fica em execução.
